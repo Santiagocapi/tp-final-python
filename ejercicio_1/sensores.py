@@ -63,7 +63,8 @@ def limpiar_registro_sensor(registro_raw):
         "temperatura": temperatura,
         "ubicacion": ubicacion,
     }
-    
+
+   
 # ---------------------------------------------------------------------------
 # Punto B: Monitoreo y mapeo estadístico
 # ---------------------------------------------------------------------------
@@ -92,6 +93,7 @@ def generar_resumen_sensores(lista_sensores_limpios, umbral_temperatura):
 
     promedio_temperatura = round(suma_temperaturas / len(lista_sensores_limpios), 2)
     return lista_sensores_alerta, promedio_temperatura
+
 
 # ---------------------------------------------------------------------------
 # Bloque de ejecución: flujo completo (datos crudos -> limpieza -> reporte)
@@ -139,3 +141,4 @@ if __name__ == "__main__":
     else:
         print("Sensores en alerta  : ninguno")
     print("=" * 50)
+    
