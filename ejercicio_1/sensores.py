@@ -92,3 +92,50 @@ def generar_resumen_sensores(lista_sensores_limpios, umbral_temperatura):
 
     promedio_temperatura = round(suma_temperaturas / len(lista_sensores_limpios), 2)
     return lista_sensores_alerta, promedio_temperatura
+
+# ---------------------------------------------------------------------------
+# Bloque de ejecución: flujo completo (datos crudos -> limpieza -> reporte)
+# ---------------------------------------------------------------------------
+if __name__ == "__main__":
+    registros_crudos = [
+        {"sensor_id": " SENSOR-001 ", "temperatura": "24.5C", "ubicacion": "Planta Norte"},
+        {"sensor_id": "SENSOR-002   ", "temperatura": " 27.8 °C", "ubicacion": "Planta Sur"},
+        {"sensor_id": "  sensor-003", "temperatura": "22,1C"},  # sin ubicación
+        {"sensor_id": "SENSOR-004", "temperatura": "31.2c", "ubicacion": "   "},  # ubicación vacía
+        {"sensor_id": " SENSOR-005", "temperatura": 26, "ubicacion": " Planta Este "},
+        {"sensor_id": "SENSOR-006", "temperatura": "N/A", "ubicacion": "Planta Oeste"},  # inválido
+    ]
+    UMBRAL_TEMPERATURA = 25.0
+
+    print("=" * 50)
+    print("     ECOTECH SOLUTIONS - REPORTE DE SENSORES")
+    print("=" * 50)
+
+    # Paso 1: limpiamos cada registro y descartamos los que no se pueden usar.
+    lista_sensores_limpios = []
+    for registro in registros_crudos:
+        try:
+            lista_sensores_limpios.append(limpiar_registro_sensor(registro))
+        except ValueError as error:
+            print(f"[DESCARTADO] {error}")
+
+    # Paso 2: mostramos los registros ya normalizados.
+    print(f"\n{'ID':<12}{'Temp (°C)':>10}   Ubicación")
+    print("-" * 50)
+    for sensor in lista_sensores_limpios:
+        print(f"{sensor['sensor_id']:<12}{sensor['temperatura']:>10.1f}   {sensor['ubicacion']}")
+
+    # Paso 3: generamos y mostramos el resumen.
+    lista_sensores_alerta, promedio_temperatura = generar_resumen_sensores(
+        lista_sensores_limpios, UMBRAL_TEMPERATURA
+    )
+
+    print("-" * 50)
+    print(f"Sensores procesados : {len(lista_sensores_limpios)} de {len(registros_crudos)}")
+    print(f"Umbral de alerta    : {UMBRAL_TEMPERATURA:.1f} °C")
+    print(f"Promedio de planta  : {promedio_temperatura:.2f} °C")
+    if lista_sensores_alerta:
+        print(f"Sensores en alerta  : {', '.join(lista_sensores_alerta)}")
+    else:
+        print("Sensores en alerta  : ninguno")
+    print("=" * 50)
