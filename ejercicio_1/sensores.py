@@ -63,3 +63,32 @@ def limpiar_registro_sensor(registro_raw):
         "temperatura": temperatura,
         "ubicacion": ubicacion,
     }
+    
+# ---------------------------------------------------------------------------
+# Punto B: Monitoreo y mapeo estadístico
+# ---------------------------------------------------------------------------
+def generar_resumen_sensores(lista_sensores_limpios, umbral_temperatura):
+    """
+    Analiza una lista de registros ya sanitizados con limpiar_registro_sensor().
+
+    Devuelve una tupla (lista_sensores_alerta, promedio_temperatura):
+        - lista_sensores_alerta: IDs de los sensores cuya temperatura
+          supera el umbral recibido.
+        - promedio_temperatura: promedio térmico global, redondeado a 2 decimales.
+
+    Si la lista está vacía devuelve ([], 0.0) para evitar dividir por cero.
+    """
+    if not lista_sensores_limpios:
+        return [], 0.0
+
+    lista_sensores_alerta = []
+    suma_temperaturas = 0.0
+
+    # Recorremos una sola vez: acumulamos la suma y detectamos las alertas.
+    for sensor in lista_sensores_limpios:
+        suma_temperaturas += sensor["temperatura"]
+        if sensor["temperatura"] > umbral_temperatura:
+            lista_sensores_alerta.append(sensor["sensor_id"])
+
+    promedio_temperatura = round(suma_temperaturas / len(lista_sensores_limpios), 2)
+    return lista_sensores_alerta, promedio_temperatura
