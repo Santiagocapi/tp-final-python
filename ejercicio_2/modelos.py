@@ -64,3 +64,25 @@ class DispositivoEcológico:
 
     def __str__(self):
         return self.obtener_ficha_tecnica()
+
+
+# ---------------------------------------------------------------------------
+# Clase especializada
+# ---------------------------------------------------------------------------
+class PanelSolar(DispositivoEcológico):
+    """Panel solar: agrega la potencia nominal en watts."""
+
+    def __init__(self, modelo, precio, stock, eficiencia_watts):
+        # Herencia: el padre se encarga de modelo, precio y stock validado.
+        super().__init__(modelo, precio, stock)
+        self.eficiencia_watts = eficiencia_watts
+
+    # Polimorfismo: mismo nombre de método, comportamiento personalizado.
+    def obtener_ficha_tecnica(self):
+        ficha_base = super().obtener_ficha_tecnica()
+        return f"[Panel Solar] {ficha_base} | Potencia: {self.eficiencia_watts} W"
+
+    def a_diccionario(self):
+        datos = super().a_diccionario()
+        datos["eficiencia_watts"] = self.eficiencia_watts
+        return datos
