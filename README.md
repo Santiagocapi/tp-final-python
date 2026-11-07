@@ -1,9 +1,11 @@
-# TP Final Obligatorio - Programación con Python
+## Cómo ejecutar
 
-Trabajo práctico final del módulo M6 (Desarrollo Web, Aplicaciones y Conceptos Avanzados).
+### Ejercicio 1
 
-## Estructura
+    python ejercicio_1/sensores.py
 
-- `ejercicio_1/` - Sanitización y análisis estadístico de sensores
-- `ejercicio_2/` - Modelo de productos, excepciones y persistencia
-- `ejercicio_3/` - Auditoría con tests unitarios e integración web (proyecto Django)
+### Ejercicio 2
+
+    python ejercicio_2/main.py
+
+Genera `ejercicio_2/catalogo_ecotech.json` con los productos válidos del catálogo.
