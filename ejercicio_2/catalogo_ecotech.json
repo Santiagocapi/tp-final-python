@@ -1,0 +1,28 @@
+[
+    {
+        "tipo": "DispositivoEcológico",
+        "modelo": "Termostato-Smart",
+        "precio": 350.0,
+        "stock": 15
+    },
+    {
+        "tipo": "DispositivoEcológico",
+        "modelo": "Medidor-Consumo-WiFi",
+        "precio": 120.5,
+        "stock": 40
+    },
+    {
+        "tipo": "PanelSolar",
+        "modelo": "SolarMax-500",
+        "precio": 1200.0,
+        "stock": 8,
+        "eficiencia_watts": 500
+    },
+    {
+        "tipo": "PanelSolar",
+        "modelo": "SolarPro-750",
+        "precio": 1850.0,
+        "stock": 3,
+        "eficiencia_watts": 750
+    }
+]
